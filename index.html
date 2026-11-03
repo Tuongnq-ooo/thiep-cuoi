@@ -225,6 +225,33 @@
     font-size: 34px; color: #8b1e2d; z-index: -1;
   }
 
+  .countdown { margin-top: 34px; }
+  .cd-title {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    font-family: 'Playfair Display', serif; font-size: 15px; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--text-soft);
+  }
+  .cd-title::before, .cd-title::after { content: ''; width: 36px; height: 1px; background: currentColor; opacity: .6; }
+  .cd-boxes { display: flex; justify-content: center; gap: 10px; margin-top: 16px; }
+  .cd-box {
+    flex: 0 1 72px;
+    padding: 12px 0 10px;
+    background: linear-gradient(160deg, #fff, #f1ece2);
+    border: 1px solid rgba(31,77,15,.2);
+    border-radius: 14px;
+    box-shadow: 0 6px 16px rgba(31,77,15,.1);
+  }
+  .cd-box b {
+    display: block;
+    font-family: 'Playfair Display', serif; font-weight: 500;
+    font-size: 30px; line-height: 1.1; color: var(--green);
+    font-variant-numeric: tabular-nums;
+  }
+  .cd-box b.tick { animation: tick .45s ease; }
+  @keyframes tick { 0% { transform: translateY(-8px); opacity: .2; } 100% { transform: none; opacity: 1; } }
+  .cd-box small { display: block; margin-top: 4px; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-soft); }
+  .cd-done { margin-top: 16px; font-family: 'Dancing Script', cursive; font-size: 30px; color: var(--green); }
+
   .date-box {
     display: flex; align-items: center; justify-content: center; gap: 16px;
     margin: 18px 0; color: var(--green);
@@ -388,6 +415,104 @@
   .gb-item p { font-size: 14px; line-height: 1.6; color: #3d4a2f; word-break: break-word; }
   .gb-empty { margin-top: 20px; font-size: 14px; color: var(--text-soft); }
 
+  /* ---------- Xác nhận tham dự ---------- */
+  .rsvp-cta { margin-top: 30px; display: flex; flex-direction: column; align-items: center; gap: 22px; }
+  .add-calendar { font-size: 14px; color: var(--green); text-underline-offset: 4px; }
+  .rsvp-open {
+    padding: 12px 26px;
+    font: 500 15px 'Playfair Display', serif; text-transform: uppercase; letter-spacing: .5px;
+    color: #fff; background: var(--green);
+    border: none; border-radius: 10px;
+    box-shadow: 0 6px 16px rgba(31,77,15,.3);
+    cursor: pointer;
+    transition: transform .2s;
+  }
+  .rsvp-open:hover { transform: translateY(-2px); }
+
+  .rsvp-modal {
+    position: fixed; inset: 0; z-index: 30;
+    display: flex; align-items: center; justify-content: center;
+    padding: 16px;
+    background: rgba(0,0,0,.45);
+    -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+    opacity: 0; visibility: hidden;
+    transition: opacity .3s ease, visibility .3s;
+  }
+  .rsvp-modal.open { opacity: 1; visibility: visible; }
+  .rsvp-card {
+    position: relative;
+    width: 100%; max-width: 380px; max-height: 100%; overflow-y: auto;
+    padding: 24px 20px 20px;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    color: #1f2a1a;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.3);
+    transform: translateY(20px) scale(.97);
+    transition: transform .3s ease;
+  }
+  .rsvp-modal.open .rsvp-card { transform: none; }
+  .rsvp-close {
+    position: absolute; top: 14px; right: 14px;
+    width: 30px; height: 30px;
+    border: none; border-radius: 50%;
+    background: #eef0ee; color: #555; font-size: 20px; line-height: 1;
+    cursor: pointer;
+  }
+  .rsvp-card h4 { font-size: 20px; font-weight: 600; margin-bottom: 6px; }
+  .rsvp-sub { font-size: 13px; line-height: 1.5; color: #6b7280; margin-bottom: 18px; }
+  .rsvp-label { display: block; font-size: 14px; font-weight: 500; margin: 14px 0 8px; }
+  .rsvp-card input[type="text"], .rsvp-card input:not([type]), .rsvp-card textarea {
+    width: 100%; padding: 11px 14px;
+    font: 16px system-ui, -apple-system, sans-serif;
+    border: 1px solid #e3e6e3; border-radius: 10px;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .rsvp-card input:focus, .rsvp-card textarea:focus { border-color: var(--green); }
+  .rsvp-card textarea { height: 72px; resize: vertical; }
+
+  .rsvp-option {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 12px; margin-bottom: 8px;
+    font-size: 14px;
+    background: #f5f6f8;
+    border: 1.5px solid transparent; border-radius: 10px;
+    cursor: pointer;
+    transition: background .2s, border-color .2s;
+  }
+  .rsvp-option input { position: absolute; opacity: 0; pointer-events: none; }
+  .rsvp-icon {
+    display: flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: #e5e7eb; color: #6b7280; font-size: 14px;
+    transition: background .2s, color .2s;
+  }
+  .rsvp-option.yes:has(input:checked) { background: #ecfdf5; border-color: #10b981; color: #047857; }
+  .rsvp-option.yes:has(input:checked) .rsvp-icon { background: #10b981; color: #fff; }
+  .rsvp-option.no:has(input:checked) { border-color: #9ca3af; }
+  .rsvp-option.no:has(input:checked) .rsvp-icon { background: #6b7280; color: #fff; }
+
+  .rsvp-guests { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .rsvp-guests.hidden { display: none; }
+  .rsvp-stepper { display: flex; align-items: center; gap: 14px; margin-top: 6px; }
+  .rsvp-stepper button {
+    width: 30px; height: 30px;
+    border: 1px solid #d1d5db; border-radius: 50%;
+    background: #fff; color: #374151; font-size: 17px; line-height: 1;
+    cursor: pointer;
+  }
+  .rsvp-stepper b { min-width: 16px; text-align: center; font-size: 17px; }
+  .rsvp-submit {
+    width: 100%; margin-top: 18px; padding: 14px;
+    font: 600 15px system-ui, -apple-system, sans-serif;
+    color: #fff; background: var(--green);
+    border: none; border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(31,77,15,.3);
+    cursor: pointer;
+  }
+  .rsvp-submit:disabled { opacity: .6; cursor: wait; }
+
   .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s ease, transform 1s ease; }
   .reveal.in { opacity: 1; transform: none; }
 </style>
@@ -488,6 +613,15 @@
           <span>28</span><span>29</span><span>30</span><span>31</span>
         </div>
       </div>
+      <div class="countdown">
+        <div class="cd-title">Đếm ngược đến ngày vui</div>
+        <div class="cd-boxes" id="countdown">
+          <div class="cd-box"><b data-unit="d">00</b><small>Ngày</small></div>
+          <div class="cd-box"><b data-unit="h">00</b><small>Giờ</small></div>
+          <div class="cd-box"><b data-unit="m">00</b><small>Phút</small></div>
+          <div class="cd-box"><b data-unit="s">00</b><small>Giây</small></div>
+        </div>
+      </div>
     </div>
 
     <div class="sec reveal">
@@ -511,6 +645,11 @@
         <p class="muted" style="--d:5">(Tức ngày 4 tháng 11 năm Bính Ngọ)</p>
         <div class="ribbon" style="--d:6">❦</div>
         <p style="--d:7"><b>Tại tư gia nhà trai</b></p>
+      </div>
+      <div class="rsvp-cta">
+        <a class="add-calendar" target="_blank" rel="noopener"
+          href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=L%E1%BB%85+c%C6%B0%E1%BB%9Bi+Quang+T%C6%B0%E1%BB%9Dng+%26+Thu+Uy%C3%AAn&dates=20261212T040000Z/20261212T080000Z&location=M%C3%A2y+Retreat,+Hoa+L%C6%B0,+Ninh+B%C3%ACnh">Thêm vào lịch</a>
+        <button type="button" class="rsvp-open" id="rsvpOpen">Xác nhận tham dự</button>
       </div>
     </div>
 
@@ -565,6 +704,41 @@
   </section>
 
   <button class="music-btn" id="musicBtn" aria-label="Bật/tắt nhạc">♪</button>
+
+  <div class="rsvp-modal" id="rsvpModal" role="dialog" aria-modal="true" aria-labelledby="rsvpTitle">
+    <form class="rsvp-card" id="rsvpForm">
+      <button type="button" class="rsvp-close" id="rsvpClose" aria-label="Đóng">×</button>
+      <h4 id="rsvpTitle">Xác nhận tham dự</h4>
+      <p class="rsvp-sub">Sự hiện diện của bạn là niềm vinh hạnh cho gia đình chúng tôi. Xin xác nhận để chúng tôi chuẩn bị chu đáo nhất.</p>
+
+      <label class="rsvp-label" for="rsvpName">Tên của bạn</label>
+      <input id="rsvpName" maxlength="50" placeholder="Nhập tên của bạn" required>
+
+      <div class="rsvp-label">Bạn sẽ đến chứ?</div>
+      <label class="rsvp-option yes">
+        <input type="radio" name="attend" value="1" checked>
+        <span class="rsvp-icon">✓</span> Tôi sẽ đến
+      </label>
+      <label class="rsvp-option no">
+        <input type="radio" name="attend" value="0">
+        <span class="rsvp-icon">✕</span> Rất tiếc, tôi không thể đến
+      </label>
+
+      <div class="rsvp-guests" id="rsvpGuestsRow">
+        <span class="rsvp-label">Số lượng khách (bao gồm bạn)</span>
+        <div class="rsvp-stepper">
+          <button type="button" data-step="-1" aria-label="Bớt">−</button>
+          <b id="rsvpGuests">1</b>
+          <button type="button" data-step="1" aria-label="Thêm">+</button>
+        </div>
+      </div>
+
+      <label class="rsvp-label" for="rsvpMsg">Lời nhắn cho cô dâu chú rể</label>
+      <textarea id="rsvpMsg" maxlength="500" placeholder="Để lại lời nhắn (không bắt buộc)"></textarea>
+
+      <button type="submit" class="rsvp-submit">Gửi xác nhận</button>
+    </form>
+  </div>
 </div>
 
 <audio id="music" loop preload="auto" playsinline src="music.m4a"></audio>
@@ -687,7 +861,7 @@
   main.addEventListener('click', e => {
     if (e.target.closest('#gallery')) return;
     // Đang nhập lời chúc thì luôn dừng, không bật/tắt
-    if (e.target.closest('.guestbook')) return void (scrollPaused = true);
+    if (e.target.closest('.guestbook, .rsvp-cta')) return void (scrollPaused = true);
     scrollPaused = !scrollPaused;
   });
 
@@ -781,6 +955,31 @@
   }, { root: main, threshold: [0, 0.15] });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+  const WEDDING_TIME = new Date('2026-12-12T11:00:00+07:00').getTime();
+  const countdown = document.getElementById('countdown');
+  const cdUnits = Object.fromEntries([...countdown.querySelectorAll('b')].map(el => [el.dataset.unit, el]));
+  function updateCountdown() {
+    const diff = WEDDING_TIME - Date.now();
+    if (diff <= 0) {
+      clearInterval(cdTimer);
+      countdown.outerHTML = '<div class="cd-done">Cảm ơn bạn đã chung vui cùng chúng mình!</div>';
+      return;
+    }
+    const s = Math.floor(diff / 1000);
+    const values = { d: Math.floor(s / 86400), h: Math.floor(s / 3600) % 24, m: Math.floor(s / 60) % 60, s: s % 60 };
+    for (const unit in values) {
+      const text = String(values[unit]).padStart(2, '0');
+      const el = cdUnits[unit];
+      if (el.textContent === text) continue;
+      el.textContent = text;
+      el.classList.remove('tick');
+      void el.offsetWidth;
+      el.classList.add('tick');
+    }
+  }
+  const cdTimer = setInterval(updateCountdown, 1000);
+  updateCountdown();
+
   const gallery = document.getElementById('gallery');
   const slides = [...gallery.querySelectorAll('.ph')];
   const galleryCount = document.getElementById('galleryCount');
@@ -828,7 +1027,7 @@
   const gbEmpty = document.getElementById('gbEmpty');
   const GB_KEY = 'guestbook';
   // URL Web App của Google Apps Script (xem guestbook.gs). Để trống thì chỉ lưu trên máy khách.
-  const GB_API = 'https://script.google.com/macros/s/AKfycbzyACGedGnRNpmUTc9236KOs3fztAwABDhdAKMt7SszO2lrfN80qiLUJL99jmGsuvIuog/exec';
+  const GB_API = 'https://script.google.com/macros/s/AKfycbzzAH2z4haWpyaStkS56buBnLw5SmbJE_usWgsCc30XPBNRdiiC6LeL6Kn13bKmXneF9Q/exec';
   const gbWishes = [
     'Chúc hai bạn trăm năm hạnh phúc, bạc đầu răng long!',
     'Chúc vợ chồng son mãi yêu thương, sớm có tin vui nhé!',
@@ -913,6 +1112,82 @@
 
   renderWishes();
   syncWishes();
+
+  const rsvpModal = document.getElementById('rsvpModal');
+  const rsvpForm = document.getElementById('rsvpForm');
+  const rsvpOpen = document.getElementById('rsvpOpen');
+  const rsvpName = document.getElementById('rsvpName');
+  const rsvpMsg = document.getElementById('rsvpMsg');
+  const rsvpGuests = document.getElementById('rsvpGuests');
+  const rsvpGuestsRow = document.getElementById('rsvpGuestsRow');
+  const RSVP_KEY = 'rsvp';
+  let guests = 1;
+
+  function setGuests(n) {
+    guests = Math.min(Math.max(n, 1), 20);
+    rsvpGuests.textContent = guests;
+  }
+  function updateAttend() {
+    rsvpGuestsRow.classList.toggle('hidden', rsvpForm.attend.value !== '1');
+  }
+  function markSubmitted() {
+    if (localStorage.getItem(RSVP_KEY)) rsvpOpen.textContent = 'Đã xác nhận ✓';
+  }
+  function openRsvp() {
+    const saved = JSON.parse(localStorage.getItem(RSVP_KEY) || 'null');
+    if (saved) {
+      rsvpName.value = saved.name;
+      rsvpForm.attend.value = saved.attend ? '1' : '0';
+      setGuests(saved.guests || 1);
+      rsvpMsg.value = saved.msg;
+    } else if (!rsvpName.value) {
+      rsvpName.value = gbName.value;
+    }
+    updateAttend();
+    scrollPaused = true;
+    rsvpModal.classList.add('open');
+  }
+  const closeRsvp = () => rsvpModal.classList.remove('open');
+
+  rsvpOpen.addEventListener('click', openRsvp);
+  document.getElementById('rsvpClose').addEventListener('click', closeRsvp);
+  rsvpModal.addEventListener('click', e => { if (e.target === rsvpModal) closeRsvp(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeRsvp(); });
+  rsvpForm.addEventListener('change', updateAttend);
+  rsvpForm.querySelectorAll('[data-step]').forEach(btn =>
+    btn.addEventListener('click', () => setGuests(guests + Number(btn.dataset.step)))
+  );
+
+  rsvpForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    const data = {
+      type: 'rsvp',
+      name: rsvpName.value.trim(),
+      attend: rsvpForm.attend.value === '1',
+      guests,
+      msg: rsvpMsg.value.trim()
+    };
+    if (!data.name) return;
+    const btnSubmit = rsvpForm.querySelector('.rsvp-submit');
+    btnSubmit.disabled = true;
+    btnSubmit.textContent = 'Đang gửi…';
+    try {
+      // Không đặt Content-Type để tránh preflight CORS mà Apps Script không hỗ trợ
+      const res = await fetch(GB_API, { method: 'POST', body: JSON.stringify(data) });
+      if (!(await res.json()).ok) throw new Error();
+      localStorage.setItem(RSVP_KEY, JSON.stringify(data));
+      markSubmitted();
+      closeRsvp();
+      alert(data.attend ? 'Cảm ơn bạn! Hẹn gặp bạn trong ngày vui nhé ❤' : 'Cảm ơn bạn đã báo cho chúng mình!');
+    } catch {
+      alert('Chưa gửi được xác nhận, bạn thử lại nhé!');
+    } finally {
+      btnSubmit.disabled = false;
+      btnSubmit.textContent = 'Gửi xác nhận';
+    }
+  });
+
+  markSubmitted();
 
   musicBtn.addEventListener('click', () => {
     music.paused ? music.play() : music.pause();
