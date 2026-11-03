@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Thiệp cưới Quang Tường & Thu Uyên</title>
+<meta name="description" content="Trân trọng kính mời bạn đến dự lễ cưới của Quang Tường & Thu Uyên - 25.09.2026">
+<!-- Ảnh xem trước khi chia sẻ Facebook: thay bằng đường dẫn tuyệt đối sau khi đưa lên host -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Thiệp cưới Quang Tường & Thu Uyên">
+<meta property="og:description" content="Trân trọng kính mời bạn đến dự lễ cưới - 25.09.2026">
+<meta property="og:image" content="1790519126253_6917733913470249985_6917733913470249985_3b7d3b3279aa6cb3e16e60b2fca6c83c.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Lora:ital,wght@0,400;0,500;1,400&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1f4d0f;
+    --green-dark: #0a1f05;
+    --cream: #f3efe8;
+    --text-soft: #6b7f5a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Lora', serif;
+    background: #000;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button { touch-action: manipulation; }
+  .app {
+    position: relative;
+    max-width: 480px;
+    height: 100%;
+    height: 100dvh;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  /* ---------- Màn hình bìa ---------- */
+  .cover {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 20%, #173d0a 0%, var(--green-dark) 70%);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 10;
+    transition: opacity .8s ease, transform .8s ease;
+  }
+  .cover.hide { opacity: 0; transform: scale(1.08); pointer-events: none; }
+
+  .leaf {
+    position: absolute; top: -30px;
+    width: 14px; height: 14px;
+    background: #7fa35a;
+    border-radius: 0 100% 0 100%;
+    opacity: .8;
+    pointer-events: none;
+    animation: fall linear infinite;
+  }
+  @keyframes fall {
+    to { transform: translate(60px, 110vh) rotate(540deg); }
+  }
+
+  .card {
+    position: relative;
+    width: 76%;
+    max-width: 360px;
+    min-height: min(515px, 88dvh);
+    padding: 24px 0;
+    background: var(--cream);
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.5);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    animation: popIn 1s ease;
+  }
+  @keyframes popIn { from { opacity: 0; transform: translateY(30px); } }
+  .card .flower-tl { position: absolute; top: -10px; left: -30px; width: 170px; opacity: .55; }
+  .card .flower-br { position: absolute; bottom: -10px; right: -30px; width: 170px; opacity: .55; transform: rotate(180deg); }
+  .card > *:not(svg) { position: relative; }
+
+  .heart {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--green);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 25px rgba(31,77,15,.5);
+    margin-bottom: 36px;
+    animation: beat 1.6s ease-in-out infinite;
+  }
+  @keyframes beat { 50% { transform: scale(1.08); } }
+  .names { font-family: 'Playfair Display', serif; color: var(--green); font-size: 34px; line-height: 1.15; }
+  .names .amp { font-size: 16px; display: block; }
+  .divider { display: flex; align-items: center; gap: 10px; margin: 14px 0; color: var(--text-soft); font-size: 12px; }
+  .divider::before, .divider::after { content: ''; width: 50px; height: 1px; background: var(--text-soft); opacity: .6; }
+  .date { color: var(--text-soft); font-size: 19px; }
+  .invite { color: var(--text-soft); font-size: 18px; margin: 28px 0 34px; }
+  .btn-open {
+    font-family: 'Lora', serif;
+    font-size: 18px; font-weight: 500;
+    color: #fff;
+    background: var(--green);
+    border: none;
+    padding: 16px 42px;
+    border-radius: 40px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(31,77,15,.4);
+    transition: transform .2s;
+  }
+  .btn-open:hover { transform: translateY(-2px); }
+
+  /* ---------- Màn hình thiệp ---------- */
+  .main {
+    position: absolute; inset: 0;
+    background: #fbf8f6;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    opacity: 0;
+    transition: opacity 1s ease .3s;
+  }
+  .main.show { opacity: 1; }
+  .main .bg-flower { position: absolute; pointer-events: none; }
+  .main .f1 { top: -40px; right: -40px; width: 300px; }
+  .main .f2 { bottom: -20px; left: -50px; width: 300px; transform: rotate(160deg); }
+  .main .f3 { top: 120px; left: -60px; width: 260px; opacity: .25; }
+  .main .f4 { bottom: 120px; right: -60px; width: 260px; opacity: .25; transform: rotate(200deg); }
+
+  .couple { position: relative; min-height: 100%; padding: 200px 0 220px; overflow: hidden; }
+  .band {
+    position: absolute; left: 0; right: 0;
+    top: 46%; height: 70px;
+    background: #3d6b2a;
+    background-image: radial-gradient(circle at 20% 50%, rgba(255,255,255,.08) 10px, transparent 11px),
+                      radial-gradient(circle at 70% 30%, rgba(255,255,255,.08) 14px, transparent 15px);
+    background-size: 80px 70px;
+  }
+  .row { position: relative; display: flex; align-items: center; gap: 12px; padding: 0 16px; }
+  .row + .row { margin-top: -40px; }
+  .row.bride { flex-direction: row-reverse; }
+
+  .photo {
+    flex: 0 0 55%;
+    padding: 6px;
+    background: #c9a88a;
+    box-shadow: 0 10px 25px rgba(0,0,0,.25);
+    opacity: 0;
+  }
+  .photo > div { width: 100%; aspect-ratio: 439 / 615; background-color: #ddd; }
+  .groom .photo { transform: rotate(-6deg) translateX(-40px); }
+  .bride .photo { transform: rotate(5deg) translateX(40px); }
+  .main.show .groom .photo { animation: slideL 1s ease .6s forwards; }
+  .main.show .bride .photo { animation: slideR 1s ease 1s forwards; }
+  @keyframes slideL { to { opacity: 1; transform: rotate(-6deg); } }
+  @keyframes slideR { to { opacity: 1; transform: rotate(5deg); } }
+
+  /* Ảnh chụp màn hình: cắt bỏ phần giao diện điện thoại */
+  .photo-groom {
+    background: url('1790519126416_6917733913470249985_6917733913470249985_bf3b532e75fc125b1537662149a11e87.jpg') 50% 46.5% / 107.7% auto no-repeat;
+  }
+  .photo-bride {
+    background: url('1790519126253_6917733913470249985_6917733913470249985_3b7d3b3279aa6cb3e16e60b2fca6c83c.jpg') center / cover no-repeat;
+  }
+
+  .label { opacity: 0; }
+  .main.show .groom .label { animation: fadeUp 1s ease 1.2s forwards; }
+  .main.show .bride .label { animation: fadeUp 1s ease 1.6s forwards; }
+  @keyframes fadeUp { from { transform: translateY(15px); } to { opacity: 1; transform: none; } }
+  .label small { display: block; font-family: 'Playfair Display', serif; font-size: 14px; color: #555; letter-spacing: 1px; }
+  .label h2 { font-family: 'Playfair Display', serif; font-weight: 400; font-size: 30px; color: var(--green); white-space: nowrap; }
+  .bride .label { text-align: right; }
+  .bride .label small { padding-right: 20px; }
+
+  .music-btn {
+    position: fixed;
+    bottom: 24px;
+    right: max(20px, calc(50% - 220px));
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    border: 3px solid rgba(255,255,255,.7);
+    background: #6b9a55;
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+    display: none;
+    align-items: center; justify-content: center;
+    box-shadow: 0 6px 16px rgba(0,0,0,.25);
+    z-index: 20;
+    margin-bottom: env(safe-area-inset-bottom);
+  }
+  .music-btn.show { display: flex; }
+  .music-btn.playing { animation: spin 4s linear infinite; }
+  .music-btn.muted { opacity: .6; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ---------- Phần nội dung cuộn ---------- */
+  .sec { position: relative; padding: 50px 24px; text-align: center; color: #444; }
+  .script { font-family: 'Dancing Script', cursive; color: var(--green); font-size: 44px; line-height: 1.2; }
+  .sec h3 { font-family: 'Playfair Display', serif; font-weight: 400; color: var(--green); font-size: 26px; margin-bottom: 10px; }
+  .sec p { font-size: 15px; line-height: 1.8; }
+  .sec .muted { color: var(--text-soft); }
+  .ribbon { font-size: 26px; color: #8b1e2d; margin: 18px 0; }
+
+  .ph { width: 100%; aspect-ratio: 2 / 3; background: #eee center / cover no-repeat; box-shadow: 0 8px 20px rgba(0,0,0,.15); }
+  .ph.shot { aspect-ratio: 439 / 615; background-size: 107.7% auto; }
+  .pair { display: flex; gap: 12px; margin-top: 24px; }
+  .pair > * { flex: 1; }
+  .pair > :last-child { margin-top: 40px; }
+
+  .calendar { margin: 28px auto 0; max-width: 300px; }
+  .calendar .month { font-family: 'Playfair Display', serif; color: var(--green); font-size: 18px; margin-bottom: 10px; }
+  .calendar .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; font-size: 14px; }
+  .calendar .grid b { font-weight: 500; color: var(--green); }
+  .calendar .grid span { padding: 6px 0; position: relative; }
+  .calendar .grid .day { color: #fff; z-index: 0; }
+  .calendar .grid .day::before {
+    content: '♥'; position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 34px; color: #8b1e2d; z-index: -1;
+  }
+
+  .date-box {
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+    margin: 18px 0; color: var(--green);
+    font-family: 'Playfair Display', serif;
+  }
+  .date-box .side { font-size: 18px; padding: 8px 0; border-top: 1px solid currentColor; border-bottom: 1px solid currentColor; min-width: 80px; }
+  .date-box .big { font-size: 64px; line-height: 1; }
+  .sec-date { background: #f3efe8; }
+
+  .quote { font-style: italic; margin-top: 24px; }
+  .album { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 24px; }
+  .album .wide { grid-column: span 2; aspect-ratio: 3 / 2; }
+
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s ease, transform 1s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="flower" viewBox="0 0 200 200">
+      <path d="M20 180 C60 140 90 110 150 60" stroke="#8a6a4a" stroke-width="3" fill="none"/>
+      <g fill="#8fb870">
+        <path d="M60 140 C30 150 10 130 5 110 C30 105 55 115 60 140Z"/>
+        <path d="M95 105 C100 70 80 50 60 45 C55 70 70 95 95 105Z"/>
+        <path d="M120 85 C150 95 175 80 185 60 C160 55 135 65 120 85Z" fill="#6f9a52"/>
+        <path d="M40 165 C45 190 70 198 90 195 C85 175 65 162 40 165Z" fill="#a8c98e"/>
+      </g>
+      <g transform="translate(140 60)">
+        <g fill="#fff" stroke="#e5e5dc" stroke-width="1">
+          <ellipse cx="0" cy="-22" rx="14" ry="22"/>
+          <ellipse cx="0" cy="-22" rx="14" ry="22" transform="rotate(72)"/>
+          <ellipse cx="0" cy="-22" rx="14" ry="22" transform="rotate(144)"/>
+          <ellipse cx="0" cy="-22" rx="14" ry="22" transform="rotate(216)"/>
+          <ellipse cx="0" cy="-22" rx="14" ry="22" transform="rotate(288)"/>
+        </g>
+        <circle r="8" fill="#f2c94c"/>
+      </g>
+      <g transform="translate(70 120) scale(.7)">
+        <g fill="#fff" stroke="#e5e5dc" stroke-width="1">
+          <ellipse cx="0" cy="-22" rx="14" ry="22"/>
+          <ellipse cx="0" cy="-22" rx="14" ry="22" transform="rotate(72)"/>
+          <ellipse cx="0" cy="-22" rx="14" ry="22" transform="rotate(144)"/>
+          <ellipse cx="0" cy="-22" rx="14" ry="22" transform="rotate(216)"/>
+          <ellipse cx="0" cy="-22" rx="14" ry="22" transform="rotate(288)"/>
+        </g>
+        <circle r="8" fill="#f2c94c"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="app">
+  <!-- Màn hình bìa -->
+  <section class="cover" id="cover">
+    <div class="card">
+      <svg class="flower-tl"><use href="#flower"/></svg>
+      <svg class="flower-br"><use href="#flower"/></svg>
+      <div class="heart">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M12 21s-7.5-4.6-10-9.3C.3 8.3 2.3 4 6.3 4c2.3 0 3.8 1.3 4.7 2.6h2C13.9 5.3 15.4 4 17.7 4c4 0 6 4.3 4.3 7.7C19.5 16.4 12 21 12 21z"/></svg>
+      </div>
+      <div class="names">
+        Quang Tường
+        <span class="amp">&amp;</span>
+        Thu Uyên
+      </div>
+      <div class="divider">❦</div>
+      <div class="date">25 tháng 9, 2026</div>
+      <div class="invite">Thân Mời</div>
+      <button class="btn-open" id="btnOpen">Mở thiệp</button>
+    </div>
+  </section>
+
+  <!-- Màn hình thiệp -->
+  <section class="main" id="main">
+    <div class="couple">
+      <svg class="bg-flower f3"><use href="#flower"/></svg>
+      <svg class="bg-flower f4"><use href="#flower"/></svg>
+      <svg class="bg-flower f1"><use href="#flower"/></svg>
+      <div class="band"></div>
+      <div class="row groom">
+        <div class="photo"><div class="photo-groom"></div></div>
+        <div class="label">
+          <small>Chú Rể</small>
+          <h2>Quang Tường</h2>
+        </div>
+      </div>
+      <div class="row bride">
+        <div class="photo"><div class="photo-bride"></div></div>
+        <div class="label">
+          <small>Trưởng Nữ</small>
+          <h2>Thu Uyên</h2>
+        </div>
+      </div>
+      <svg class="bg-flower f2"><use href="#flower"/></svg>
+    </div>
+
+    <div class="sec reveal">
+      <div class="script">Save the Date</div>
+      <h3>Quang Tường &amp; Thu Uyên</h3>
+      <p class="muted">Hôn nhân là chuyện cả đời,<br>yêu người vừa ý, cưới người mình thương.</p>
+      <div class="calendar">
+        <div class="month">Tháng 9 · 2026</div>
+        <div class="grid">
+          <b>T2</b><b>T3</b><b>T4</b><b>T5</b><b>T6</b><b>T7</b><b>CN</b>
+          <span></span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span>
+          <span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span>
+          <span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span>
+          <span>21</span><span>22</span><span>23</span><span>24</span><span class="day">25</span><span>26</span><span>27</span>
+          <span>28</span><span>29</span><span>30</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec reveal">
+      <h3>Thư Mời</h3>
+      <p>Trân trọng kính mời bạn cùng người thương<br>đến dự bữa tiệc chung vui cùng gia đình chúng tôi</p>
+      <div class="pair">
+        <div class="ph" style="background-image:url('1790519126294_6917733913470249985_6917733913470249985_91b10db3b1e61c92a0c1a9e4df52c1c4.jpg')"></div>
+        <div class="ph" style="background-image:url('1790519126338_6917733913470249985_6917733913470249985_22d594e2f724bcb417df312beb5d4ac2.jpg')"></div>
+      </div>
+    </div>
+
+    <div class="sec sec-date reveal">
+      <p>Tiệc cưới sẽ diễn ra vào lúc</p>
+      <h3>11 giờ 00</h3>
+      <p class="muted">Tháng 9</p>
+      <div class="date-box">
+        <div class="side">Thứ Sáu</div>
+        <div class="big">25</div>
+        <div class="side">2026</div>
+      </div>
+      <p class="muted">(Tức ngày 15 tháng 8 năm Bính Ngọ)</p>
+      <div class="ribbon">❦</div>
+      <p><b>Tại tư gia nhà trai</b><br>Địa chỉ: ........................................</p>
+    </div>
+
+    <div class="sec reveal">
+      <div class="ph" style="background-image:url('1790519126356_6917733913470249985_6917733913470249985_68c286ddfc6e300dc609909689add753.jpg')"></div>
+      <p class="quote muted">"Tình yêu không phải là nhìn nhau,<br>mà là cùng nhau nhìn về một hướng."</p>
+      <div class="pair">
+        <div class="ph" style="background-image:url('1790519126319_6917733913470249985_6917733913470249985_fbef1e4e282f2480fb0355a377e1504c.jpg')"></div>
+        <div class="ph shot" style="background-image:url('1790519126371_6917733913470249985_6917733913470249985_397681e28525922003868f180c5cc32e.jpg');background-position:50% 47.4%"></div>
+      </div>
+    </div>
+
+    <div class="sec reveal">
+      <div class="script">Our Love Story</div>
+      <div class="album">
+        <div class="ph shot" style="background-image:url('1790519126387_6917733913470249985_6917733913470249985_c034d161b6e770cdeaf11fb1347b79d9.jpg');background-position:50% 50.7%"></div>
+        <div class="ph shot" style="background-image:url('1790519126416_6917733913470249985_6917733913470249985_bf3b532e75fc125b1537662149a11e87.jpg');background-position:50% 46.5%"></div>
+        <div class="ph wide" style="background-image:url('1790519126253_6917733913470249985_6917733913470249985_3b7d3b3279aa6cb3e16e60b2fca6c83c.jpg');background-position:center 30%"></div>
+      </div>
+    </div>
+
+    <div class="sec reveal" style="padding-bottom:110px">
+      <div class="ribbon">🎀</div>
+      <div class="script">Thank You</div>
+      <p class="muted">Sự hiện diện của bạn là niềm vinh hạnh<br>cho gia đình chúng tôi!</p>
+    </div>
+  </section>
+
+  <button class="music-btn" id="musicBtn" aria-label="Bật/tắt nhạc">♪</button>
+</div>
+
+<audio id="music" loop preload="auto" playsinline src="music.mp4"></audio>
+
+<script>
+  const cover = document.getElementById('cover');
+  const main = document.getElementById('main');
+  const music = document.getElementById('music');
+  const musicBtn = document.getElementById('musicBtn');
+
+  for (let i = 0; i < 12; i++) {
+    const leaf = document.createElement('span');
+    leaf.className = 'leaf';
+    leaf.style.left = Math.random() * 100 + '%';
+    leaf.style.animationDuration = 8 + Math.random() * 8 + 's';
+    leaf.style.animationDelay = -Math.random() * 12 + 's';
+    leaf.style.transform = `scale(${0.5 + Math.random() * 0.8})`;
+    cover.appendChild(leaf);
+  }
+
+  function updateMusicBtn() {
+    musicBtn.classList.toggle('playing', !music.paused);
+    musicBtn.classList.toggle('muted', music.paused);
+  }
+
+  // Trình duyệt thường chặn autoplay: nếu bị chặn, phát ở lần chạm/bấm đầu tiên.
+  // iOS (kể cả trình duyệt trong Facebook/Messenger) chỉ coi touchend/click là thao tác hợp lệ.
+  const unlockEvents = ['touchend', 'click', 'keydown'];
+  function removeUnlock() {
+    unlockEvents.forEach(ev => document.removeEventListener(ev, unlockMusic, true));
+  }
+  function unlockMusic(e) {
+    if (e.target.closest && e.target.closest('#musicBtn')) return removeUnlock();
+    if (!music.paused) return removeUnlock();
+    music.play().then(removeUnlock).catch(() => {});
+  }
+  music.play().catch(() => {
+    unlockEvents.forEach(ev => document.addEventListener(ev, unlockMusic, true));
+  });
+  musicBtn.classList.add('show');
+  updateMusicBtn();
+
+  function openCard() {
+    cover.classList.add('hide');
+    main.classList.add('show');
+    if (music.paused) music.play().catch(() => {});
+  }
+
+  // Chỉ quay video khi mở trang với ?record (vd: index.html?record) để khách mời không bị hỏi quyền.
+  const isRecordMode = new URLSearchParams(location.search).has('record');
+
+  document.getElementById('btnOpen').addEventListener('click', () => {
+    isRecordMode ? recordCard() : openCard();
+  });
+
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+
+  function autoScroll(speed = 70) {
+    return new Promise(resolve => {
+      let pos = main.scrollTop;
+      let last = performance.now();
+      function step(now) {
+        pos += speed * (now - last) / 1000;
+        last = now;
+        main.scrollTop = pos;
+        if (main.scrollTop + main.clientHeight >= main.scrollHeight - 1) return resolve();
+        requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+
+  async function recordCard() {
+    if (!navigator.mediaDevices?.getDisplayMedia) {
+      alert('Trình duyệt này không hỗ trợ quay màn hình. Hãy dùng Chrome trên máy tính.');
+      return openCard();
+    }
+    const btnOpen = document.getElementById('btnOpen');
+    btnOpen.textContent = 'Đang chờ cho phép quay…';
+    let stream, recorder, type;
+    try {
+      stream = await navigator.mediaDevices.getDisplayMedia({
+        video: { frameRate: 30 },
+        audio: true,
+        preferCurrentTab: true,
+        selfBrowserSurface: 'include'
+      });
+      const [track] = stream.getVideoTracks();
+      // Chrome: chỉ quay khung thiệp thay vì cả tab
+      if (window.CropTarget && track.cropTo) {
+        await CropTarget.fromElement(document.querySelector('.app'))
+          .then(target => track.cropTo(target))
+          .catch(() => {});
+      }
+      // QuickTime không phát được âm thanh Opus trong mp4 nên ưu tiên AAC (mp4a.40.2)
+      type = ['video/mp4;codecs=avc1,mp4a.40.2', 'video/mp4', 'video/webm'].find(t => MediaRecorder.isTypeSupported(t));
+      recorder = new MediaRecorder(stream, { mimeType: type });
+    } catch (e) {
+      stream?.getTracks().forEach(t => t.stop());
+      alert('Không quay được video: ' + e.message + '\nHãy mở bằng Chrome trên máy tính và chọn "Tab này".');
+      return openCard();
+    } finally {
+      btnOpen.textContent = 'Mở thiệp';
+    }
+    const [track] = stream.getVideoTracks();
+    const chunks = [];
+    recorder.ondataavailable = e => chunks.push(e.data);
+    recorder.onstop = () => {
+      stream.getTracks().forEach(t => t.stop());
+      musicBtn.classList.add('show');
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob(chunks, { type }));
+      a.download = 'thiep-cuoi.' + (type.includes('mp4') ? 'mp4' : 'webm');
+      a.click();
+    };
+    const stop = () => recorder.state !== 'inactive' && recorder.stop();
+    track.addEventListener('ended', stop);
+
+    musicBtn.classList.remove('show');
+    await wait(500);
+    recorder.start();
+    music.currentTime = 0;
+    await wait(2500);
+    openCard();
+    await wait(4000);
+    await autoScroll();
+    await wait(3000);
+    stop();
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        en.target.classList.add('in');
+        observer.unobserve(en.target);
+      }
+    });
+  }, { root: main, threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  musicBtn.addEventListener('click', () => {
+    music.paused ? music.play() : music.pause();
+  });
+  music.addEventListener('play', updateMusicBtn);
+  music.addEventListener('pause', updateMusicBtn);
+</script>
+</body>
+</html>
