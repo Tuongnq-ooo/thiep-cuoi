@@ -171,7 +171,8 @@
   .main.show .bride .label { animation: fadeUp 1s ease 1.6s forwards; }
   @keyframes fadeUp { from { transform: translateY(15px); } to { opacity: 1; transform: none; } }
   .label small { display: block; font-family: 'Playfair Display', serif; font-size: 14px; color: #555; letter-spacing: 1px; }
-  .label h2 { font-family: 'Playfair Display', serif; font-weight: 400; font-size: 30px; color: var(--green); white-space: nowrap; }
+  .label { flex: 1; min-width: 0; }
+  .label h2 { font-family: 'Playfair Display', serif; font-weight: 400; font-size: clamp(22px, 7.5vw, 30px); line-height: 1.2; color: var(--green); overflow-wrap: break-word; }
   .bride .label { text-align: right; }
   .bride .label small { padding-right: 20px; }
 
@@ -253,11 +254,11 @@
   .cd-done { margin-top: 16px; font-family: 'Dancing Script', cursive; font-size: 30px; color: var(--green); }
 
   .date-box {
-    display: flex; align-items: center; justify-content: center; gap: 16px;
+    display: flex; align-items: center; justify-content: center; gap: clamp(8px, 3vw, 16px);
     margin: 18px 0; color: var(--green);
     font-family: 'Playfair Display', serif;
   }
-  .date-box .side { font-size: 18px; padding: 8px 0; border-top: 1px solid currentColor; border-bottom: 1px solid currentColor; min-width: 80px; }
+  .date-box .side { flex: 0 1 80px; min-width: 0; font-size: clamp(15px, 4.4vw, 18px); white-space: nowrap; padding: 8px 0; border-top: 1px solid currentColor; border-bottom: 1px solid currentColor; }
   .date-box .big { font-size: 64px; line-height: 1; }
   .sec-date { background: linear-gradient(180deg, #f3efe8, #ebe3d3); }
   .date-frame {
@@ -317,7 +318,7 @@
   .sec-date.in .date-box .side::before, .sec-date.in .date-box .side::after { transform: scaleX(1); }
 
   .sec-date .date-box .big {
-    font-size: 76px;
+    font-size: clamp(54px, 17vw, 76px);
     background: linear-gradient(110deg, var(--green) 40%, #a8c98e 50%, var(--green) 60%);
     background-size: 250% 100%;
     -webkit-background-clip: text; background-clip: text;
@@ -568,11 +569,11 @@
   .gift-wrap.opened .gift-box { animation: none; }
 
   .gift-float, .gift-spark, .gift-dot { position: absolute; pointer-events: none; animation: giftFloat 3.2s ease-in-out infinite; }
-  .gift-float { font-size: 24px; filter: saturate(.6) drop-shadow(0 4px 4px rgba(0,0,0,.12)); }
-  .gift-float.f1 { top: 18px; left: 18px; font-size: 26px; }
-  .gift-float.f2 { top: 46px; right: 14px; animation-delay: -1s; }
-  .gift-float.f3 { bottom: 70px; left: 6px; font-size: 18px; animation-delay: -2s; }
-  .gift-float.f4 { bottom: 52px; right: 34px; font-size: 22px; animation-delay: -.5s; z-index: 2; }
+  .gift-float { width: 1.2em; line-height: 1; text-align: center; font-size: 24px; filter: saturate(.6) drop-shadow(0 4px 4px rgba(0,0,0,.12)); }
+  .gift-float.g1 { top: 18px; left: 18px; font-size: 26px; }
+  .gift-float.g2 { top: 46px; right: 14px; animation-delay: -1s; }
+  .gift-float.g3 { bottom: 70px; left: 6px; font-size: 18px; animation-delay: -2s; }
+  .gift-float.g4 { bottom: 52px; right: 34px; font-size: 22px; animation-delay: -.5s; z-index: 2; }
   .gift-spark { color: var(--green); font-size: 18px; animation-name: giftTwinkle; }
   .gift-spark.s1 { top: 40px; left: 54px; }
   .gift-spark.s2 { top: 84px; right: 22px; font-size: 11px; animation-delay: -1.5s; }
@@ -818,10 +819,10 @@
     <div class="sec reveal gift">
       <div class="gallery-title">Hộp quà mừng</div>
       <button type="button" class="gift-wrap" id="giftOpen" aria-label="Mở hộp quà mừng">
-        <span class="gift-float f1">🎁</span>
-        <span class="gift-float f2">🎁</span>
-        <span class="gift-float f3">🎁</span>
-        <span class="gift-float f4">🎁</span>
+        <span class="gift-float g1">🎁</span>
+        <span class="gift-float g2">🎁</span>
+        <span class="gift-float g3">🎁</span>
+        <span class="gift-float g4">🎁</span>
         <span class="gift-spark s1">✦</span>
         <span class="gift-spark s2">✦</span>
         <span class="gift-dot d1"></span>
